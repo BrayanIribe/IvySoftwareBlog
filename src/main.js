@@ -21,7 +21,7 @@ import Home from '@/views/Home'
 import Post from '@/views/Post'
 
 const fetchPostsIndex = async() => {
-  return (await axios.get('data/posts_index.json')).data
+  return (await axios.get('/data/posts_index.json')).data
 }
 
 const loadApp = async() => {
@@ -37,7 +37,7 @@ const loadApp = async() => {
     state: {
       postsIndex,
       VUE_APP_POSTS_PER_PAGE
-    }
+    },
   });
 
   console.log({VUE_APP_POSTS_PER_PAGE});

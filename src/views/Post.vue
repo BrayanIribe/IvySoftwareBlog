@@ -41,6 +41,7 @@ export default {
   created() {
     const compilePost = async () => {
       // Fetch current post md
+    
       const url = '/' + this.$store.state.postsIndex.filter(
         p => p.id === this.id
       )[0].url;
