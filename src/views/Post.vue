@@ -9,7 +9,7 @@ import string from "string"
 
 const opt = {
   slugify: s => string(s).slugify().toString(),
-  permalink: true,
+  permalink: true
 }
 
 const markDownIt = new MarkdownIt({ html: true }).use(emoji).use(anchor, opt);
@@ -102,6 +102,12 @@ export default {
       for (const staticRenderFunction of compiled.staticRenderFns) {
         this.$options.staticRenderFns.push(staticRenderFunction);
       }
+      setTimeout(()=>{
+        if (!this.$route.hash)
+        return
+        var element = document.querySelector(this.$route.hash);
+        element.scrollIntoView({ behavior: 'smooth', block: 'start'});
+      }, 150)
     };
 
     // console.log(compilePost);
