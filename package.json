@@ -50,7 +50,7 @@
   },
   "scripts": {
     "serve": "                           vue-cli-service serve",
-    "build": "       vue-cli-service build",
+    "build": "       yarn build:index && vue-cli-service build",
     "lint": "                            vue-cli-service lint",
     "build:index": " node scripts/generate_index.js"
   }
