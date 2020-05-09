@@ -1,0 +1,46 @@
+name: deploy_to_gh_pages
+on:
+  release:
+    types: [ created ]
+
+jobs:
+
+  build_dist:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - uses: actions/setup-node@v1
+      
+      - run: |
+          yarn 
+          yarn build:index
+          yarn build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist_artifact
+          path: dist/**/*
+  
+  deploy_dist:
+    runs-on: ubuntu-18.04
+    needs: build_dist
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+
+      - run: rm -r *
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist_artifact
+          path: ./
+
+      - run: |
+          git config --local user.email "posts_hook@github.com"
+          git config --local user.name "Posts Hook"
+          git add .
+          git commit -m "[CI:deploy] deploy_dist job"
+          git push -u origin gh-pages
