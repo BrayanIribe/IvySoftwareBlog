@@ -1,10 +1,1 @@
-[
-    {
-        "id": "sincronizacion",
-        "section": "explicaciones",
-        "date": "8 de mayo del 2020",
-        "title": "Sincronización de productos Ivy",
-        "description": "> En esta entrada vamos a platicar acerca de la tecnología de sincronización que incorpora IvyMailer e IvyStore para sincronizarse.",
-        "url": "data/posts/explained/sync.md"
-    }
-]
+[{"id":"sync","section":"explained","date":"8 de mayo de 2020","title":"Sincronización de productos Ivy","description":"> Este artículo está orientado para explicar cómo funciona la sincronización en los diversos productos Ivy cuando estos la ofrecen.","url":"data/posts/explained/sync.md"}]
