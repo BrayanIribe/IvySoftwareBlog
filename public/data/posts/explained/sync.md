@@ -5,7 +5,7 @@
 
 Actualmente, los productos IvyStore e IvyMailer incorporan sincronización integrada con otras aplicaciones. Sin embargo... internamente, funcionan de una manera muy interesante.
 
-![Ilustración de ejemplo](data/assets/ivystore-sync.png)
+![Ilustración de ejemplo](/data/assets/ivystore-sync.png)
 
 > Ilustración de ejemplo, donde nos muestra un problema por el cual posiblemente te encuentres aquí. Esto sucede debido al algoritmo punto a punto con el que cuentan estos productos.
 
@@ -18,7 +18,7 @@ Antes de llegar al grano, tenemos que discutir un poco sobre este tema y su func
 
 Cuando entramos a la configuración de estos sistemas, antes de entrar, nos pide una "autorización" que coloquialmente, la llamamos "modo sudo" (esto por la forma en la que se comporta la consola linux con sudo).
 
-![Sudo request](data/assets/sudo-mode.png)
+![Sudo request](/data/assets/sudo-mode.png)
 
 > Famosa pantalla "sudo" donde se nos requiere reescribir la contraseña una vez más.
 
@@ -56,7 +56,7 @@ Cuando usted rellena el formulario de la aplicación a instalar con los datos re
 
 Cuando instala la aplicación correctamente y, tiene los permisos de sudo el usuario que instaló la aplicación, entonces puede hacer **sincronizaciones**.
 
-![IvyMailer sync menu](data/assets/ivymailer-sync.png)
+![IvyMailer sync menu](/data/assets/ivymailer-sync.png)
 
 
 El funcionamiento de las sincronizaciones es muy extenso, es tanto que no podríamos abarcarlo completamente en esta entrada pero lo que sí podemos decir, es qué funciona diferente, dependiendo de la aplicación instalada y el producto Ivy en sí.
