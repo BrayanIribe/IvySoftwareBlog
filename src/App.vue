@@ -59,7 +59,7 @@ h3 {
 }
 
 .post img {
-  max-width: 65%;
+  max-width: 95%;
   vertical-align: middle;
   border: 0;
 }
