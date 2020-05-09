@@ -2,8 +2,9 @@
   <div id="app">
     <nav-bar></nav-bar>
     <div class="container pt-5">
-        <router-view></router-view>
+        <router-view :key="$route.path"></router-view>
     </div>
+          <TopButton />
     <Footer></Footer>
   </div>
 </template>
@@ -11,6 +12,7 @@
 <script language="ts">
 import navBar from "@/components/navBar.vue";
 import Footer from "@/components/Footer.vue";
+import TopButton from "@/components/TopButton.vue";
 
 export default {
   metaInfo: {
@@ -24,13 +26,20 @@ export default {
   },
   components: {
     navBar,
-    Footer
+    Footer,
+    TopButton
+  },
+  created(){
   }
 };
 </script>
 
 <style lang="scss">
 /* Custom SCSS here */
+
+html {
+  scroll-padding-top: 80px; /* height of sticky header */
+}
 
 .nav-bar {
   background-color: #007bff;
@@ -97,5 +106,12 @@ h3 {
 .fade-enter,
 .fade-leave-active {
   opacity: 0
+}
+
+.fl-container{
+  width:100%;
+  height:72vh;
+  display:flex;
+  align-items:center;
 }
 </style>

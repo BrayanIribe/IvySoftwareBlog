@@ -1,5 +1,5 @@
 # Sincronización de productos Ivy #
-#### 8 de mayo de 2020
+#### Redactado el 8 de mayo de 2020
 
 > Este artículo está orientado para explicar cómo funciona la sincronización en los diversos productos Ivy cuando estos la ofrecen.
 
@@ -61,7 +61,7 @@ Cuando instala la aplicación correctamente y, tiene los permisos de sudo el usu
 
 El funcionamiento de las sincronizaciones es muy extenso, es tanto que no podríamos abarcarlo completamente en esta entrada pero lo que sí podemos decir, es qué funciona diferente, dependiendo de la aplicación instalada y el producto Ivy en sí.
 
-**Usted solo busque un botón que diga "Hacer sincronización" y listo.**
+**Usted solo busque un botón que diga "Hacer sincronización".**
 
 Y listo, con esto estaría sincronizando los datos de la aplicación instalada. Los datos sincronizados depende de la aplicación en sí.
 
@@ -70,5 +70,3 @@ Y listo, con esto estaría sincronizando los datos de la aplicación instalada. 
 Bueno, ¡como ya lo hemos dicho! Su contraseña era la única llave para hacer sincronizaciones, si la perdió entonces no podemos hacer nada **por nuestra parte**.
 
 Pero, no se preocupe... No es tan grave esto. Simplemente, **reinstale la aplicación** y podrá hacer sincronizaciones de nuevo, nada grave.
-
-Desde IvySoftware mandamos saludos a usted lector, esperemos que le haya gustado este artículo. ¡Hasta la próxima! 😄

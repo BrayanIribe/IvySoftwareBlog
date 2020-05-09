@@ -3,25 +3,32 @@ import VueWithCompiler from "vue/dist/vue.esm";
 import axios from "axios";
 import MarkdownIt from "markdown-it";
 import emoji from "markdown-it-emoji";
+import anchor from "markdown-it-anchor"
 import spinner from "@/components/spinner.md"
+import string from "string"
 
-const markDownIt = new MarkdownIt({ html: true }).use(emoji);
+const opt = {
+  slugify: s => string(s).slugify().toString(),
+  permalink: true,
+}
+
+const markDownIt = new MarkdownIt({ html: true }).use(emoji).use(anchor, opt);
 
 export default {
   name: "post",
   props: ["section", "id"],
-  metaInfo ({ section, id }) {
+  metaInfo () {
     return {
-      title: `${section} | ${id.replace(/-/g,' ')}`
+      title: this.title
     }
   },
 
   data() {
     return {
-      templateRender: null
+      templateRender: null,
+      title: ''
     };
   },
-
   render(createElement) {
     if (this.templateRender) {
       return this.templateRender();
@@ -42,30 +49,77 @@ export default {
     const compilePost = async () => {
       // Fetch current post md
     
-      const url = '/' + this.$store.state.postsIndex.filter(
+    let item = this.$store.state.postsIndex.filter(
         p => p.id === this.id
-      )[0].url;
+      );
+
+      if (!item || !item.length ){
+        const compiled = VueWithCompiler.compile(`
+        <div class="mt-5 fl-container">
+          <div class="row w-100">
+            <div class="col-sm-4 text-center mb-3 pt-3">
+              <img src="/data/assets/not-found.svg" class="not-found-svg" />
+            </div>
+            <div class="col-sm-7 offset-sm-1 mb-3 pt-3">
+            <h3 class="text-dark mb-4">No encontramos el recurso solicitado.</h3>
+            <p>Quizá el enlace que te pasaron es viejo, intenta con uno diferente.</p>
+            <hr />
+            <p class="text-secondary">Si querías encontrarte con esta página, entonces... ¡Felicidades! la encontraste.</p>
+            </div>
+          </div>
+        </div>
+        `);
+        this.templateRender =  compiled.render;
+        this.$options.staticRenderFns = [];
+      for (const staticRenderFunction of compiled.staticRenderFns) {
+        this.$options.staticRenderFns.push(staticRenderFunction);
+      }
+        return;
+      }
+
+      this.title = item[0].title;
+
+      const url = '/' + item[0].url;
+      
       const md = (await axios.get(url)).data;
 
       // MarkDown to HTML
       const html = markDownIt.render(md);
 
       const compiled = VueWithCompiler.compile(`
-        <div class="post my-2 py-2">
-          <button type="button" @click="hasHistory() ? $router.go(-1) : $router.push('/')" class="my-5 btn btn-outline-primary">&laquo; Regresar</button>
+        <div class="post my-2 py-2 mt-4">
           <div class="markdown-body">
             ${html}
           </div>
-          <button type="button" @click="hasHistory() ? $router.go(-1) : $router.push('/')" class="my-5 btn btn-outline-primary">&laquo; Regresar</button>
+          <hr />
+          <p class='text-center text-primary'>Desde IvySoftware mandamos saludos a usted lector 🎉 esperemos que le haya gustado este artículo. ¡Hasta la próxima! 😄</p>
+          <p class='display-1 text-center mb-3' style='font-size:20px'>¿Este artículo te fue útil? Dinos en los comentarios!</p>
+          <component is="script" src="https://utteranc.es/client.js" repo="BrayanIribe/IvySoftwareBlog" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async />
         </div>
-      `);
+      `)
       this.templateRender = compiled.render;
       this.$options.staticRenderFns = [];
       for (const staticRenderFunction of compiled.staticRenderFns) {
         this.$options.staticRenderFns.push(staticRenderFunction);
       }
     };
+
+    // console.log(compilePost);
     compilePost();
+
   }
 };
 </script>
+
+<style scoped>
+.not-found-svg{
+  max-height:30vh;
+}
+
+.header-anchor{
+  opacity:0;
+}
+*:hover > .header-anchor{
+  opacity:1;
+}
+</style>
