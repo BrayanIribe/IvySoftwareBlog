@@ -43,6 +43,7 @@ const loadApp = async() => {
   console.log({VUE_APP_POSTS_PER_PAGE});
 
   const router = new Router({
+    history: true,
     routes: [
       {
         path: '/:section?',
