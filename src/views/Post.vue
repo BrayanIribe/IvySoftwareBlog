@@ -3,30 +3,30 @@ import VueWithCompiler from "vue/dist/vue.esm";
 import axios from "axios";
 import MarkdownIt from "markdown-it";
 import emoji from "markdown-it-emoji";
-import anchor from "markdown-it-anchor"
-import spinner from "@/components/spinner.md"
-import string from "string"
+import anchor from "markdown-it-anchor";
+import spinner from "@/components/spinner.md";
+import string from "string";
 
 const opt = {
-  slugify: s => string(s).slugify().toString(),
-  permalink: true
-}
+  slugify: (s) => string(s).slugify().toString(),
+  permalink: true,
+};
 
 const markDownIt = new MarkdownIt({ html: true }).use(emoji).use(anchor, opt);
 
 export default {
   name: "post",
   props: ["section", "id"],
-  metaInfo () {
+  metaInfo() {
     return {
-      title: this.title
-    }
+      title: this.title,
+    };
   },
 
   data() {
     return {
       templateRender: null,
-      title: ''
+      title: "",
     };
   },
   render(createElement) {
@@ -38,22 +38,22 @@ export default {
   },
 
   beforeRouteUpdate() {
-    document.location.reload()
+    document.location.reload();
   },
 
   methods: {
-    hasHistory () { return window.history?.length > 2 }
+    hasHistory() {
+      return window.history?.length > 2;
+    },
   },
 
   created() {
     const compilePost = async () => {
       // Fetch current post md
-    
-    let item = this.$store.state.postsIndex.filter(
-        p => p.id === this.id
-      );
 
-      if (!item || !item.length ){
+      let item = this.$store.state.postsIndex.filter((p) => p.id === this.id);
+
+      if (!item || !item.length) {
         const compiled = VueWithCompiler.compile(`
         <div class="mt-5 fl-container">
           <div class="row w-100">
@@ -69,63 +69,61 @@ export default {
           </div>
         </div>
         `);
-        this.templateRender =  compiled.render;
+        this.templateRender = compiled.render;
         this.$options.staticRenderFns = [];
-      for (const staticRenderFunction of compiled.staticRenderFns) {
-        this.$options.staticRenderFns.push(staticRenderFunction);
-      }
+        for (const staticRenderFunction of compiled.staticRenderFns) {
+          this.$options.staticRenderFns.push(staticRenderFunction);
+        }
         return;
       }
 
       this.title = item[0].title;
 
-      const url = '/' + item[0].url;
-      
+      const url = "/" + item[0].url;
+
       const md = (await axios.get(url)).data;
 
       // MarkDown to HTML
       const html = markDownIt.render(md);
 
       const compiled = VueWithCompiler.compile(`
-        <div class="post my-2 py-2 mt-4">
+        <div class="post bg-white p-5 border shadow rounded">
           <div class="markdown-body">
             ${html}
           </div>
           <hr />
-          <p class='text-center text-primary'>Desde IvySoftware mandamos saludos a usted lector 🎉 esperemos que le haya gustado este artículo. ¡Hasta la próxima! 😄</p>
+          <p class='text-center text-primary'>Desde TecPyme mandamos saludos a usted lector 🎉 esperemos que le haya gustado este artículo. ¡Hasta la próxima! 😄</p>
           <p class='display-1 text-center mb-3' style='font-size:20px'>¿Este artículo te fue útil? Dinos en los comentarios!</p>
-          <component is="script" src="https://utteranc.es/client.js" repo="BrayanIribe/IvySoftwareBlog" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async />
+          <component is="script" src="https://utteranc.es/client.js" repo="IvySoftwareMX/IvySoftwareBlog" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async />
         </div>
-      `)
+      `);
       this.templateRender = compiled.render;
       this.$options.staticRenderFns = [];
       for (const staticRenderFunction of compiled.staticRenderFns) {
         this.$options.staticRenderFns.push(staticRenderFunction);
       }
-      setTimeout(()=>{
-        if (!this.$route.hash)
-        return
+      setTimeout(() => {
+        if (!this.$route.hash) return;
         var element = document.querySelector(this.$route.hash);
-        element.scrollIntoView({ behavior: 'smooth', block: 'start'});
-      }, 150)
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 150);
     };
 
     // console.log(compilePost);
     compilePost();
-
-  }
+  },
 };
 </script>
 
 <style scoped>
-.not-found-svg{
-  max-height:30vh;
+.not-found-svg {
+  max-height: 30vh;
 }
 
-.header-anchor{
-  opacity:0;
+.header-anchor {
+  opacity: 0;
 }
-*:hover > .header-anchor{
-  opacity:1;
+*:hover > .header-anchor {
+  opacity: 1;
 }
 </style>

@@ -1,7 +1,13 @@
 <template>
   <div class="top-bt">
     <transition name="fade" mode="out-in">
-      <button type="button" v-if="windowTop > 50" @click="goTop()" class="bg-primary text-white">
+      <button
+        type="button"
+        v-if="windowTop > 50"
+        @click="goTop()"
+        class="bg-primary text-white"
+        style="border: none"
+      >
         <img src="/data/assets/arrow-up.svg" class="fill-white" />
       </button>
     </transition>
@@ -12,7 +18,7 @@
 export default {
   data() {
     return {
-      windowTop: 0
+      windowTop: 0,
     };
   },
   mounted() {
@@ -28,8 +34,8 @@ export default {
     },
     goTop() {
       window.scrollTo(0, 0);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -37,6 +43,7 @@ export default {
 .top-bt {
   position: sticky;
   bottom: 80px;
+  border: 0px;
 }
 
 .top-bt > button {

@@ -18,13 +18,16 @@ import 'github-markdown-css/github-markdown.css'
 import ForkeMeOnGithub from 'fork-me-on-github-vue';
 
 import Home from '@/views/Home'
+import Feed from '@/views/Feed'
 import Post from '@/views/Post'
 
-const fetchPostsIndex = async() => {
+import './styles.css';
+
+const fetchPostsIndex = async () => {
   return (await axios.get('/data/posts_index.json')).data
 }
 
-const loadApp = async() => {
+const loadApp = async () => {
   Vue.config.productionTip = false
   Vue.use(VueMeta)
   Vue.use(BootstrapVue)
@@ -40,11 +43,17 @@ const loadApp = async() => {
     },
   });
 
-  console.log({VUE_APP_POSTS_PER_PAGE});
+  console.log({ VUE_APP_POSTS_PER_PAGE });
 
   const router = new Router({
     mode: 'history',
     routes: [
+      {
+        path: '/feed',
+        name: 'feed',
+        component: Feed,
+        props: true,
+      },
       {
         path: '/:section?',
         name: 'home',
